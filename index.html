@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="Morning Ai" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Morning Ai" />
+    <meta name="description" content="Morning Ai 官方網站 - 智能AI代理平台，讓每一天都充滿微笑的節奏" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#FF6B35" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-72x72.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#FF6B35" />
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="data:text/jsx;base64,aW1wb3J0IHsgU3RyaWN0TW9kZSB9IGZyb20gJ3JlYWN0JwppbXBvcnQgeyBjcmVhdGVSb290IH0gZnJvbSAncmVhY3QtZG9tL2NsaWVudCcKaW1wb3J0ICcuL2luZGV4LmNzcycKaW1wb3J0IEFwcCBmcm9tICcuL0FwcC5qc3gnCgpjcmVhdGVSb290KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyb290JykpLnJlbmRlcigKICA8U3RyaWN0TW9kZT4KICAgIDxBcHAgLz4KICA8L1N0cmljdE1vZGU+LAopCg==" as="script" />
+    
+    <title>Morning Ai - 智能 AI 代理平台</title>
+    
+    <!-- PWA Install Prompt Styles -->
+    <style>
+      .pwa-install-prompt {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #FFD700 0%, #FF6B35 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        display: none;
+        z-index: 1000;
+        animation: slideUp 0.4s ease-out;
+      }
+      
+      .pwa-install-prompt.show {
+        display: block;
+      }
+      
+      .pwa-prompt-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      
+      .pwa-prompt-icon {
+        font-size: 2.5rem;
+        margin-right: 8px;
+      }
+      
+      .pwa-prompt-text {
+        flex: 1;
+      }
+      
+      .pwa-prompt-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+      }
+      
+      .pwa-prompt-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        font-style: italic;
+      }
+      
+      .pwa-prompt-buttons {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .pwa-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .pwa-btn-install {
+        background: rgba(255,255,255,0.9);
+        color: #FF6B35;
+        border: 2px solid rgba(255,255,255,0.3);
+      }
+      
+      .pwa-btn-install:hover {
+        background: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+      
+      .pwa-btn-dismiss {
+        background: transparent;
+        color: white;
+        border: 2px solid rgba(255,255,255,0.4);
+      }
+      
+      .pwa-btn-dismiss:hover {
+        background: rgba(255,255,255,0.1);
+      }
+      
+      @keyframes slideUp {
+        from {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .pwa-install-prompt {
+          left: 10px;
+          right: 10px;
+          bottom: 10px;
+          padding: 16px;
+        }
+        
+        .pwa-prompt-content {
+          flex-direction: column;
+          align-items: stretch;
+          text-align: center;
+        }
+        
+        .pwa-prompt-buttons {
+          justify-content: stretch;
+          margin-top: 12px;
+        }
+        
+        .pwa-btn {
+          flex: 1;
+        }
+      }
+      
+      .connection-status {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #10b981;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 1001;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      .connection-status.show {
+        transform: translateY(0);
+      }
+      
+      .connection-status.offline {
+        background: #ef4444;
+      }
+      
+      .connection-status.cached {
+        background: #f59e0b;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-Cvng2uoX.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DW9eVcRX.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Connection Status Indicator -->
+    <div id="connection-status" class="connection-status">
+      🌐 已連接到 Morning Ai
+    </div>
+    
+    <!-- PWA Install Prompt -->
+    <div id="pwa-install-prompt" class="pwa-install-prompt">
+      <div class="pwa-prompt-content">
+        <div style="display: flex; align-items: center;">
+          <div class="pwa-prompt-icon">🌅</div>
+          <div class="pwa-prompt-text">
+            <div class="pwa-prompt-title">安裝 Morning Ai</div>
+            <div class="pwa-prompt-subtitle">隨時體驗智能AI代理</div>
+          </div>
+        </div>
+        <div class="pwa-prompt-buttons">
+          <button id="pwa-install-btn" class="pwa-btn pwa-btn-install">立即安裝</button>
+          <button id="pwa-dismiss-btn" class="pwa-btn pwa-btn-dismiss">稍後</button>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- PWA Registration Script -->
+    <script>
+      // Service Worker 註冊
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('Website SW registered: ', registration);
+              
+              // 檢查更新
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (confirm('Morning Ai 網站有新版本可用，是否立即更新？')) {
+                      newWorker.postMessage({ type: 'SKIP_WAITING' });
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+              
+              // 註冊後台同步
+              if ('sync' in window.ServiceWorkerRegistration.prototype) {
+                registration.sync.register('sync-content');
+              }
+            })
+            .catch((registrationError) => {
+              console.log('Website SW registration failed: ', registrationError);
+            });
+        });
+      }
+      
+      // PWA 安裝提示
+      let deferredPrompt;
+      const installPrompt = document.getElementById('pwa-install-prompt');
+      const installBtn = document.getElementById('pwa-install-btn');
+      const dismissBtn = document.getElementById('pwa-dismiss-btn');
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // 針對官方網站，較快顯示安裝提示
+        setTimeout(() => {
+          installPrompt.classList.add('show');
+        }, 1500); // 1.5秒後顯示
+      });
+      
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`Morning Ai PWA install prompt: ${outcome}`);
+          deferredPrompt = null;
+        }
+        installPrompt.classList.remove('show');
+      });
+      
+      dismissBtn.addEventListener('click', () => {
+        installPrompt.classList.remove('show');
+        localStorage.setItem('morning-ai-pwa-install-dismissed', Date.now());
+      });
+      
+      window.addEventListener('appinstalled', () => {
+        console.log('Morning Ai PWA was installed');
+        installPrompt.classList.remove('show');
+        deferredPrompt = null;
+      });
+      
+      // 檢查是否在24小時內已經拒絕過
+      const dismissedTime = localStorage.getItem('morning-ai-pwa-install-dismissed');
+      if (dismissedTime && (Date.now() - dismissedTime < 24 * 60 * 60 * 1000)) {
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+        });
+      }
+      
+      // 連接狀態監控
+      const connectionStatus = document.getElementById('connection-status');
+      
+      function updateConnectionStatus(status, message) {
+        connectionStatus.className = 'connection-status show';
+        connectionStatus.textContent = message;
+        
+        if (status === 'offline') {
+          connectionStatus.classList.add('offline');
+        } else if (status === 'cached') {
+          connectionStatus.classList.add('cached');
+        }
+        
+        // 3秒後隱藏
+        setTimeout(() => {
+          connectionStatus.classList.remove('show');
+        }, 3000);
+      }
+      
+      // 網路狀態監控
+      function updateOnlineStatus() {
+        if (navigator.onLine) {
+          updateConnectionStatus('online', '🌐 已連接到 Morning Ai');
+          // 同步內容
+          if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type: 'SYNC_CONTENT' });
+          }
+        } else {
+          updateConnectionStatus('offline', '📱 離線瀏覽 Morning Ai');
+        }
+      }
+      
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      
+      // 初始狀態檢查
+      updateOnlineStatus();
+      
+      // 深度鏈接處理 - 品牌特定路由
+      if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        console.log('Morning Ai deep link detected:', hash);
+        
+        // 處理品牌相關的深度鏈接
+        if (hash.includes('products') || hash.includes('pricing') || 
+            hash.includes('contact') || hash.includes('get-started')) {
+          // 可以添加特定的路由處理邏輯
+        }
+      }
+      
+      // 推送通知權限請求（針對品牌更新）
+      if ('Notification' in window && 'serviceWorker' in navigator) {
+        // 在用戶瀏覽網站一段時間後請求權限
+        setTimeout(() => {
+          if (Notification.permission === 'default') {
+            Notification.requestPermission().then((permission) => {
+              console.log('Morning Ai notification permission:', permission);
+            });
+          }
+        }, 15000); // 15秒後請求通知權限
+      }
+      
+      // 監聽來自Service Worker的消息
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'CONTENT_CACHED') {
+            updateConnectionStatus('cached', '📱 內容已緩存');
+          }
+        });
+      }
+      
+      // 品牌互動追蹤
+      document.addEventListener('click', (event) => {
+        // 追蹤重要的品牌互動
+        if (event.target.matches('[data-track]')) {
+          const action = event.target.getAttribute('data-track');
+          console.log('Morning Ai interaction:', action);
+          
+          // 可以發送到分析服務
+          if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              type: 'TRACK_INTERACTION',
+              action: action,
+              timestamp: Date.now()
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
