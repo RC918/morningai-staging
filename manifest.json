@@ -2,59 +2,59 @@
   "name": "Morning Ai - 智能AI代理平台",
   "short_name": "Morning Ai",
   "description": "Morning Ai 官方網站 - 智能AI代理平台，讓每一天都充滿微笑的節奏",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FF6B35",
   "orientation": "portrait-primary",
-  "scope": "/",
+  "scope": "./",
   "lang": "zh-TW",
   "categories": ["business", "productivity", "technology", "ai"],
   "icons": [
     {
-      "src": "/icons/icon-72x72.png",
+      "src": "./icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-96x96.png",
+      "src": "./icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-128x128.png",
+      "src": "./icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-144x144.png",
+      "src": "./icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-152x152.png",
+      "src": "./icons/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "./icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-384x384.png",
+      "src": "./icons/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "./icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
@@ -65,45 +65,25 @@
       "name": "產品介紹",
       "short_name": "產品",
       "description": "了解Morning Ai產品功能",
-      "url": "/products",
-      "icons": [{ "src": "/icons/shortcut-products.png", "sizes": "96x96" }]
+      "url": "./"
     },
     {
       "name": "定價方案",
       "short_name": "定價",
       "description": "查看定價和方案選擇",
-      "url": "/pricing",
-      "icons": [{ "src": "/icons/shortcut-pricing.png", "sizes": "96x96" }]
+      "url": "./"
     },
     {
       "name": "開始使用",
       "short_name": "開始",
       "description": "立即開始使用Morning Ai",
-      "url": "/get-started",
-      "icons": [{ "src": "/icons/shortcut-start.png", "sizes": "96x96" }]
+      "url": "./"
     },
     {
       "name": "聯繫我們",
       "short_name": "聯繫",
       "description": "聯繫Morning Ai團隊",
-      "url": "/contact",
-      "icons": [{ "src": "/icons/shortcut-contact.png", "sizes": "96x96" }]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshots/desktop-homepage.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Morning Ai 官方網站首頁"
-    },
-    {
-      "src": "/screenshots/mobile-products.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "產品功能展示頁面"
+      "url": "./"
     }
   ],
   "related_applications": [
